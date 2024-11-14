@@ -3,25 +3,57 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
   }
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.large-shadow {
+  position: relative; /* Ensure the shadow is positioned correctly */
+  z-index: 1; /* Make sure the component appears above other elements */
+  box-shadow: 0 0 300px rgba(157, 0, 255, 0.496); /* Horizontal offset, vertical offset, blur radius, spread radius, color */
+}
+.blur-background{
+  backdrop-filter: blur(5px); /* Amount of blur applied */
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.bg-image {
+  background-image: url('');
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  width: 100%; 
+  height: 100vh; 
+}
+
+.custom-scrollbar {
+  /* Apply styles to the scrollbar container */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #00167a #000518 ;
+  border-radius: 20px; /* For Firefox */
 }
