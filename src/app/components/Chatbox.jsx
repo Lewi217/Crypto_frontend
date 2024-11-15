@@ -2,8 +2,24 @@ import React from 'react'
 
 const Chatbox = () => {
   const [responses, setResponses] = useState([]);
+  const [loading, setLoading] = useState(false);
   const fetchCoinDetails = async (prompt) => {
     setLoading(true);
+
+    try {
+     
+      const response = await api.post("/ai/chat", { prompt });
+      const data = response.data;
+      const ans={message:data.message,role:"modal"}
+      const userMessage={message:prompt,role:"user"}
+      setResponses([...responses, userMessage, ans]);
+      setLoading(false); 
+      console.log("response : ", data)
+    } catch (error) {
+      setLoading(false);
+      console.log("error ", error);
+      setError(error.response?.data);
+    }
   }
   return (
     <div className='chatbox blur-background large-shadow z-50 bg-[#000518]
