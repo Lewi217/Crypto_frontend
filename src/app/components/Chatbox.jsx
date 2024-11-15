@@ -23,14 +23,33 @@ const Chatbox = () => {
       </div>
 
       <div className="h-[77%]">
-
+      {responses.length ? (
+            <div className="flex flex-col py-5 px-5 overflow-y-auto h-full custom-scrollbar">
+              {responses.map((item, index) =>
+                item.role == "user" ? (
+                  <div ref={chatContainerRef} className="self-end" key={index}>
+                    <PromptMessage message={item.message} index key={index} />
+                  </div>
+                ) : (
+                  <div
+                    ref={chatContainerRef}
+                    className="self-start"
+                    key={index}
+                  >
+                    <Message message={item.message} />
+                  </div>
+                )
+              )}
+              {loading && <p>fetching data...</p>}
+            </div>
+          ) : (
         <div className="p-10 gap-5 h-full flex flex-col justify-center items-center">
           <p className=" font-bold text-2xl">
             Welcome to the Crypto Chat Bot
           </p>
           <p className="text-gray-500">inquire about market data.</p>
         </div>
-
+          )}
       </div>
       <div className="h-[10%] bottom-0 px-5">
       <input
